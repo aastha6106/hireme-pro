@@ -447,27 +447,35 @@ def download_resume(id):
 
     html = render_template("resume_pdf.html", resume=resume)
 
-    wkhtmltopdf_path = current_app.config.get("WKHTMLTOPDF_PATH")
-    config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path) if wkhtmltopdf_path else pdfkit.configuration()
+    try:
+        wkhtmltopdf_path = current_app.config.get("WKHTMLTOPDF_PATH")
+        if wkhtmltopdf_path:
+            config = pdfkit.configuration(wkhtmltopdf=wkhtmltopdf_path)
+        else:
+            config = pdfkit.configuration()
 
-    options = {
-        "page-size": "Letter",
-        "margin-top": "0.6in",
-        "margin-right": "0.7in",
-        "margin-bottom": "0.6in",
-        "margin-left": "0.7in",
-        "encoding": "UTF-8",
-        "no-outline": None,
-        "enable-local-file-access": None,
-    }
+        options = {
+            "page-size": "Letter",
+            "margin-top": "0.6in",
+            "margin-right": "0.7in",
+            "margin-bottom": "0.6in",
+            "margin-left": "0.7in",
+            "encoding": "UTF-8",
+            "no-outline": None,
+            "enable-local-file-access": None,
+        }
 
-    pdf = pdfkit.from_string(html, False, options=options, configuration=config)
+        pdf = pdfkit.from_string(html, False, options=options, configuration=config)
 
-    safe_title = re.sub(r"[^\w\s-]", "", resume.title).strip()
-    safe_title = re.sub(r"\s+", "_", safe_title)
-    filename = f"{safe_title}_Resume.pdf" if safe_title else "Resume.pdf"
+        safe_title = re.sub(r"[^\w\s-]", "", resume.title).strip()
+        safe_title = re.sub(r"\s+", "_", safe_title)
+        filename = f"{safe_title}_Resume.pdf" if safe_title else "Resume.pdf"
 
-    response = make_response(pdf)
-    response.headers["Content-Type"] = "application/pdf"
-    response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
-    return response
+        response = make_response(pdf)
+        response.headers["Content-Type"] = "application/pdf"
+        response.headers["Content-Disposition"] = f'attachment; filename="{filename}"'
+        return response
+
+    except Exception:
+        flash("PDF generation is not available on this server.", "error")
+        return redirect(url_for("main.resume_detail", id=id))
