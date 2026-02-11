@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}HireMe Pro{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="{{ url_for('main.home') }}" class="logo">HireMe <span>Pro</span></a>
+        <div class="nav-links">
+            {% if current_user.is_authenticated %}
+                <span class="nav-user">{{ current_user.username }}</span>
+                <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                <a href="{{ url_for('main.logout') }}" class="btn-nav">Log out</a>
+            {% else %}
+                <a href="{{ url_for('main.login') }}">Log in</a>
+                <a href="{{ url_for('main.register') }}" class="btn-nav">Sign up</a>
+            {% endif %}
+            <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Toggle theme">
+                <span class="toggle-icon">&#9790;</span>
+                <span class="toggle-label">Dark</span>
+            </button>
+        </div>
+    </nav>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-wrapper">
+                {% for category, message in messages %}
+                    <div class="flash flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+
+    <main class="container">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="{{ url_for('main.home') }}" class="logo">HireMe <span>Pro</span></a>
+                <p>Build resumes that get interviews.</p>
+            </div>
+            <div class="footer-links">
+                <div class="footer-col">
+                    <h4>Product</h4>
+                    <a href="{{ url_for('main.home') }}#how-it-works">How it works</a>
+                    {% if current_user.is_authenticated %}
+                        <a href="{{ url_for('main.dashboard') }}">Dashboard</a>
+                    {% else %}
+                        <a href="{{ url_for('main.register') }}">Sign up</a>
+                        <a href="{{ url_for('main.login') }}">Log in</a>
+                    {% endif %}
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 HireMe Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        var KEY = "hireme-theme";
+        var btn = document.getElementById("theme-toggle");
+
+        var saved = localStorage.getItem(KEY);
+        if (saved === "dark") {
+            document.body.classList.add("dark");
+        }
+
+        function update() {
+            var isDark = document.body.classList.contains("dark");
+            var icon = btn.querySelector(".toggle-icon");
+            var label = btn.querySelector(".toggle-label");
+            icon.textContent = isDark ? "\u2600" : "\u263E";
+            label.textContent = isDark ? "Light" : "Dark";
+        }
+
+        update();
+
+        btn.addEventListener("click", function () {
+            document.body.classList.toggle("dark");
+            var isDark = document.body.classList.contains("dark");
+            localStorage.setItem(KEY, isDark ? "dark" : "light");
+            update();
+        });
+    })();
+    </script>
+
+</body>
+</html>

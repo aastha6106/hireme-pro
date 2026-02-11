@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if entry %}Edit Experience{% else %}Add Experience{% endif %} — HireMe Pro
+{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-card resume-form-card">
+        {% if entry %}
+            <h2>Edit Experience</h2>
+        {% else %}
+            <h2>Add Experience</h2>
+        {% endif %}
+        <p class="auth-subtitle">{{ resume.title }}</p>
+
+        <form method="POST" action="{% if entry %}{{ url_for('main.edit_experience', id=entry.id) }}{% else %}{{ url_for('main.add_experience', resume_id=resume.id) }}{% endif %}">
+            <div class="form-group">
+                <label for="company">Company</label>
+                <input type="text" id="company" name="company" required
+                       placeholder="e.g. Google"
+                       value="{{ entry.company if entry else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="role">Role / Title</label>
+                <input type="text" id="role" name="role" required
+                       placeholder="e.g. Software Engineer"
+                       value="{{ entry.role if entry else '' }}">
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="start_date">Start Date</label>
+                    <input type="text" id="start_date" name="start_date"
+                           placeholder="e.g. Jan 2021"
+                           value="{{ entry.start_date if entry else '' }}">
+                </div>
+                <div class="form-group">
+                    <label for="end_date">End Date</label>
+                    <input type="text" id="end_date" name="end_date"
+                           placeholder="e.g. Dec 2023 or Present"
+                           value="{{ entry.end_date if entry else '' }}">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea id="description" name="description" rows="5"
+                          placeholder="What did you do? What did you accomplish?">{{ entry.description if entry else '' }}</textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary btn-full">
+                    {% if entry %}Save Changes{% else %}Add Experience{% endif %}
+                </button>
+                <a href="{{ url_for('main.resume_detail', id=resume.id) }}" class="btn-secondary btn-full">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

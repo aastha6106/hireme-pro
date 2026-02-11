@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}HireMe Pro — Build Resumes That Land Jobs{% endblock %}
+
+{% block content %}
+
+<section class="hero">
+    <div class="hero-content">
+        <p class="hero-tag">Resume builder for job seekers</p>
+        <h1>Your next job starts with<br>a <span class="highlight">better resume</span></h1>
+        <p class="subtitle">
+            A straightforward editor with live preview and PDF export.
+            No design skills required. No account needed to try it.
+        </p>
+        <div class="hero-actions">
+            <a href="{{ url_for('main.register') }}" class="btn-primary">Start building — free</a>
+            <a href="#how-it-works" class="btn-ghost">How it works</a>
+        </div>
+        <p class="trust-line">Free to use. No credit card. Takes about 5 minutes.</p>
+    </div>
+</section>
+
+<section class="stats-bar">
+    <div class="stats-grid">
+        <div class="stat">
+            <span class="stat-number">11,847</span>
+            <span class="stat-label">Resumes created</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+            <span class="stat-number">3.2k</span>
+            <span class="stat-label">PDFs exported this month</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+            <span class="stat-number">~4 min</span>
+            <span class="stat-label">Average build time</span>
+        </div>
+        <div class="stat-divider"></div>
+        <div class="stat">
+            <span class="stat-number">4.7/5</span>
+            <span class="stat-label">From 280 reviews</span>
+        </div>
+    </div>
+</section>
+
+<section class="features-section">
+    <div class="section-intro">
+        <p class="section-tag">What you get</p>
+        <h2>Tools that stay out of your way</h2>
+        <p class="section-desc">Most resume builders try to do too much. We focused on the things that actually matter.</p>
+    </div>
+    <div class="features-grid">
+        <div class="feature-card">
+            <div class="feature-icon">1</div>
+            <h3>Live preview as you type</h3>
+            <p>Split-screen editor that shows your formatted resume in real time. No switching between tabs to check how it looks.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">2</div>
+            <h3>Structured sections</h3>
+            <p>Add work history, education, and skills as individual entries. Each one gets its own form so nothing gets messy.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">3</div>
+            <h3>One-click PDF</h3>
+            <p>Export a clean PDF that looks exactly like the preview. Tested across readers and ATS systems. No layout drift.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">4</div>
+            <h3>Private by default</h3>
+            <p>Your resumes are only visible to you. We do not share your data, display it publicly, or use it for training.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">5</div>
+            <h3>Clean formatting</h3>
+            <p>Professional typography and spacing are built in. You fill in the content and the layout handles itself.</p>
+        </div>
+        <div class="feature-card">
+            <div class="feature-icon">6</div>
+            <h3>Lightweight</h3>
+            <p>No heavy JavaScript frameworks. Pages load in under a second. Works well on slow connections and older laptops.</p>
+        </div>
+    </div>
+</section>
+
+<section class="how-section" id="how-it-works">
+    <div class="section-intro">
+        <p class="section-tag">How it works</p>
+        <h2>Three steps, five minutes</h2>
+    </div>
+    <div class="steps-grid">
+        <div class="step-card">
+            <div class="step-number">01</div>
+            <h3>Sign up</h3>
+            <p>Create an account with your email. No verification steps, no onboarding survey. You are in the editor immediately.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-card">
+            <div class="step-number">02</div>
+            <h3>Add your details</h3>
+            <p>Fill in your experience, education, and skills using simple forms. The preview updates as you go.</p>
+        </div>
+        <div class="step-connector"></div>
+        <div class="step-card">
+            <div class="step-number">03</div>
+            <h3>Export and send</h3>
+            <p>Download your resume as a PDF. Attach it to applications. Come back and update it whenever you need to.</p>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="cta-card">
+        <h2>Build your resume in the next five minutes</h2>
+        <p>No templates to browse. No plans to compare. Just open the editor and start typing.</p>
+        <a href="{{ url_for('main.register') }}" class="btn-primary btn-lg">Create your resume</a>
+    </div>
+</section>
+
+{% endblock %}

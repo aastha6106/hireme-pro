@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Sign Up — HireMe Pro{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-card">
+        <h2>Create your account</h2>
+        <p class="auth-subtitle">Start building resumes that stand out.</p>
+
+        <form method="POST" action="{{ url_for('main.register') }}">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" required
+                       minlength="3" maxlength="80"
+                       placeholder="janedoe">
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required
+                       placeholder="jane@example.com">
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" required
+                       minlength="8"
+                       placeholder="At least 8 characters">
+            </div>
+
+            <div class="form-group">
+                <label for="confirm_password">Confirm password</label>
+                <input type="password" id="confirm_password" name="confirm_password" required
+                       minlength="8"
+                       placeholder="Type it again">
+            </div>
+
+            <button type="submit" class="btn-primary btn-full">Create account</button>
+        </form>
+
+        <p class="auth-footer">Already have an account? <a href="{{ url_for('main.login') }}">Log in</a></p>
+    </div>
+</section>
+{% endblock %}

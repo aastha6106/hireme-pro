@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}
+    {% if resume %}Edit Resume{% else %}New Resume{% endif %} — HireMe Pro
+{% endblock %}
+
+{% block content %}
+<section class="auth-section">
+    <div class="auth-card resume-form-card">
+        {% if resume %}
+            <h2>Edit Resume</h2>
+            <p class="auth-subtitle">Update your resume details below.</p>
+        {% else %}
+            <h2>Create a New Resume</h2>
+            <p class="auth-subtitle">Give it a name and a brief summary to get started.</p>
+        {% endif %}
+
+        <form method="POST" action="{% if resume %}{{ url_for('main.edit_resume', id=resume.id) }}{% else %}{{ url_for('main.create_resume') }}{% endif %}">
+            <div class="form-group">
+                <label for="title">Resume Title</label>
+                <input type="text" id="title" name="title" required
+                       maxlength="150"
+                       placeholder="e.g. Software Engineer — 2025"
+                       value="{{ resume.title if resume else '' }}">
+            </div>
+
+            <div class="form-group">
+                <label for="summary">Professional Summary</label>
+                <textarea id="summary" name="summary" rows="6"
+                          placeholder="Write a brief overview of your experience, skills, and career goals...">{{ resume.summary if resume else '' }}</textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn-primary btn-full">
+                    {% if resume %}Save Changes{% else %}Create Resume{% endif %}
+                </button>
+                <a href="{% if resume %}{{ url_for('main.resume_detail', id=resume.id) }}{% else %}{{ url_for('main.dashboard') }}{% endif %}" class="btn-secondary btn-full">Cancel</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}
