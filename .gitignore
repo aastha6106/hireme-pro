@@ -1,0 +1,7 @@
+venv/ 
+__pycache__/ 
+*.pyc 
+hireme.db 
+.env 
+*.pdf 
+.DS_Store 
